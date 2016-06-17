@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="52.53.246.23"/>
+		<property name="hostName" value="localhost"/>
 		<property name="port" value="6379"/>
 	</bean>
 
