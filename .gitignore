@@ -1,2 +1,10 @@
+**/target
+**/bin
+**/.settings
+**/.classpath
+**/.project
+*.iml
+*.iws
+*.ipr
 **/node_modules
 **/.DS_Store

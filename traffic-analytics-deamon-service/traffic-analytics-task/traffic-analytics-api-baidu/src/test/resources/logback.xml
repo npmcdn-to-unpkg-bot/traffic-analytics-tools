@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration scan="false" debug="false">
+
+	<appender name="std" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%logger{50}:%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	
+	<logger name="org.springframework.web.servlet" level="INFO" />
+	<logger name="org.springframework.web.context.support" level="INFO" />
+	<logger name="org.springframework.beans.factory.config" level="INFO" />
+	<logger name="org.springframework.beans.factory.support" level="INFO" />
+	<logger name="org.springframework.beans.factory.xml" level="INFO" />
+	<logger name="org.springframework.web.servlet.mvc" level="INFO" />
+	<logger name="org.springframework.web.servlet.handler" level="INFO" />
+	<logger name="org.springframework.security.web" level="INFO" />
+	<logger name="org.springframework.security.config" level="INFO" />
+	<logger name="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" level="INFO" />
+	<!-- 业务层日志 -->
+	<logger name="com.traffic.analytics" level="INFO" />
+	<logger name="com.traffic.analytics.commons.interceptor.LogInterceptor" level="INFO">
+		<appender-ref ref="userAccessLog" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="std" />
+	</root>
+</configuration>

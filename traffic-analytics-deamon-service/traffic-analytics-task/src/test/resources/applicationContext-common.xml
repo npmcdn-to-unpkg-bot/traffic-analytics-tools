@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+    <!-- 此文件存放了公用的一些配置信息 -->
+
+    <context:component-scan base-package="com.traffic.analytics.*" />
+
+    <!-- UTC TimeZone -->
+    <bean id="UTC" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="com.traffic.analytics.commons.utils.DateUtils.UTC" />
+    </bean>
+    <!-- Pacific TimeZone -->
+    <bean id="PACIFIC" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="com.traffic.analytics.commons.utils.DateUtils.PACIFIC" />
+    </bean>
+    <!-- Beijing TimeZone -->
+    <bean id="BEIJING" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="com.traffic.analytics.commons.utils.DateUtils.BEIJING" />
+    </bean>
+    <!-- Berlin  TimeZone -->
+    <bean id="BERLIN" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="com.traffic.analytics.commons.utils.DateUtils.BERLIN" />
+    </bean>
+    <!-- Singapore TimeZone -->
+    <bean id="SINGAPORE" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="com.traffic.analytics.commons.utils.DateUtils.SINGAPORE" />
+    </bean>
+
+</beans>

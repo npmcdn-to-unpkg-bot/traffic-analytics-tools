@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.traffic.analytics</groupId>
+		<artifactId>traffic-analytics</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>traffic-analytics-core</artifactId>
+	<name>traffic-analytics-core</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		 <dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-api-baidu</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-api-ga</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-api-adwords</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+        <dependency>
+			<groupId>com.traffic.analytics</groupId>
+			<artifactId>traffic-analytics-api-bing</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

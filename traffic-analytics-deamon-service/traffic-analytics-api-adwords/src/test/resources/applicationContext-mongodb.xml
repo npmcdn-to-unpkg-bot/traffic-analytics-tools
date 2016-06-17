@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+
+    <mongo:mongo host="52.53.246.23" port="27017">
+        <mongo:options write-fsync="true" write-timeout="0" write-number="1" slave-ok="true" socket-timeout="3600000" socket-keep-alive="true" auto-connect-retry="true" max-wait-time="5000" connect-timeout="5000" threads-allowed-to-block-for-connection-multiplier="100" connections-per-host="200" />
+    </mongo:mongo>
+
+    <mongo:db-factory dbname="semtools2" mongo-ref="mongo" username="semtools" password="S1.m-tOo!s"/>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+    </bean>
+
+</beans>

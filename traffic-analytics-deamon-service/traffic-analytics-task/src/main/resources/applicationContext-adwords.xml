@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <context:component-scan base-package="com.traffic.analytics">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <context:annotation-config/>
+    
+    <import resource="applicationContext.xml"/>
+
+    <bean id="adwords_search_report_download" class="com.traffic.analytics.task.job.TaskForDownloadAdWordsKeywordReport">
+        <property name="reportType" value="search" />
+        <property name="timezone" ref="BEIJING" />
+        <property name="adWordsDataService">
+            <bean class="com.traffic.analytics.api.adwords.service.AdWordsDataServiceImpl">
+                <property name="reportFields" value="CampaignId,CampaignName,AdGroupId,AdGroupName,Id,Criteria,FinalUrls,Clicks,Cost,Impressions,CpcBid,AveragePosition"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="adwords_content_report_download" class="com.traffic.analytics.task.job.TaskForDownloadAdWordsKeywordReport">
+        <property name="reportType" value="content" />
+        <property name="timezone" ref="BEIJING" />
+        <property name="adWordsDataService">
+            <bean class="com.traffic.analytics.api.adwords.service.AdWordsDataServiceImpl">
+                <property name="reportFields" value="CampaignId,CampaignName,AdGroupId,AdGroupName,KeywordId,Clicks,Cost,Impressions"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="adwords_campaign_report_download" class="com.traffic.analytics.task.job.TaskForDownloadAdWordsCampaignReport">
+        <property name="reportType" value="search" />
+        <property name="timezone" ref="BEIJING" />
+        <property name="adWordsDataService">
+            <bean class="com.traffic.analytics.api.adwords.service.AdWordsDataServiceImpl">
+                <property name="reportFields" value="CampaignId,CampaignName,CampaignStatus,Clicks,Cost,Impressions,Ctr,Conversions"/>
+            </bean>
+        </property>
+    </bean>
+
+</beans>
