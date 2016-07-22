@@ -34,13 +34,13 @@ $ node app.js
 
 Modules:
 
-traffic-analytics-api:第三方API抽象的接口
-traffic-analytics-api-adwords:对接Google Adwords API
-traffic-analytics-api-baidu:对接Baidu API
-traffic-analytics-api-bing:对接Bing API
-traffic-analytics-api-ga:对接Google Analytics API
-traffic-analytics-commons:公共组件
-traffic-analytics-core:业务核心模块，负责清洗和串联数据
-traffic-analytics-restful:对外暴露的接口
-traffic-analytics-task:后台crontab跑的task
+* traffic-analytics-api:第三方API抽象的接口
+* traffic-analytics-api-adwords:对接Google Adwords API
+* traffic-analytics-api-baidu:对接Baidu API
+* traffic-analytics-api-bing:对接Bing API
+* traffic-analytics-api-ga:对接Google Analytics API
+* traffic-analytics-commons:公共组件
+* traffic-analytics-core:业务核心模块，负责清洗和串联数据
+* traffic-analytics-restful:对外暴露的接口
+* traffic-analytics-task:后台crontab跑的task
 
