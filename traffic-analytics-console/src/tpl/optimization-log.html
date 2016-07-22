@@ -1,0 +1,58 @@
+<div ng-show="noVendor" class="panel">
+  <div class="panel-body no-vendor-alert">
+    <span translate>msg.no_vendor_for_site</span>,
+    <a class="btn btn-success" ui-sref="app.account">Go Bind One!</a>
+  </div>
+</div>
+
+<div ng-hide="noVendor">
+<div class="bg-light lter b-b wrapper-md">
+  <div class="pull-right vendor-selector">
+  <div class="dropdown hidden-sm" uib-dropdown>
+    <a href class="dropdown-toggle" uib-dropdown-toggle>
+      {{currentVendor ? vendors[currentVendor].name : '------'}} <b class="caret"></b>
+    </a>
+    <!-- dropdown -->
+    <ul class="dropdown-menu animated fadeInRight w" uib-dropdown-menu>
+      <li ng-repeat="(vid, vendor) in vendors">
+        <a ng-click="setVendor(vid)" href>{{vendor.name}}</a>
+      </li>
+    </ul>
+    <!-- / dropdown -->
+  </div>
+  </div>
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Date</th>
+            <th md-column>Name</th>
+            <th md-column>Vendor</th>
+            <th md-column>Affected Keywords</th>
+            <th md-column class="cs-cell-action">Details</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="row in items.rows">
+            <td md-cell>{{ row.date }}</td>
+            <td md-cell>{{ row.name }}</td>
+            <td md-cell>{{ row.vendorName }}</td>
+            <td md-cell>{{ row.affected }}</td>
+            <td md-cell class="cs-cell-action">
+              <a role="button" ui-sref="app.optimization.result({rule: row.ruleid, date: row.date})"><i class="glyphicon glyphicon-list"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{items.count}}" md-page-select></md-table-pagination>
+
+  </div>
+</div>
+</div>

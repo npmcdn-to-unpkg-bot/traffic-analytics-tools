@@ -1,0 +1,63 @@
+<div ng-show="noVendor" class="panel">
+  <div class="panel-body no-vendor-alert">
+    <span translate>msg.no_vendor_for_site</span>,
+    <a class="btn btn-success" ui-sref="app.account">Go Bind One!</a>
+  </div>
+</div>
+
+<div ng-hide="noVendor">
+<div class="bg-light lter b-b wrapper-md">
+  <div class="pull-right daterange-picker">
+    <a daterangepicker="dateRangeOptions" date-range="dateRange" href class="ng-isolate-scope">
+      <span class="ng-binding">{{dateRange.start | date: 'yyyy/MM/dd'}} - {{dateRange.end | date: 'yyyy/MM/dd'}}</span>
+      <i class="fa fa-angle-down"></i>
+    </a>
+  </div>
+  <div class="pull-right vendor-selector">
+    <div class="dropdown hidden-sm" uib-dropdown>
+      <a href class="dropdown-toggle" uib-dropdown-toggle>
+        {{currentVendor ? vendors[currentVendor].name : '------'}} <b class="caret"></b>
+      </a>
+      <!-- dropdown -->
+      <ul class="dropdown-menu animated fadeInUp w" uib-dropdown-menu>
+        <li ng-repeat="(vid,vendor) in vendors">
+          <a ng-click="setVendor(vid)" href>{{vendor.name}}</a>
+        </li>
+      </ul>
+      <!-- / dropdown -->
+    </div>
+  </div>
+  <h1 class="m-n font-thin h3">Dashboard</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading font-bold">Spline</div>
+    <div class="panel-body">
+      <div style="height: 250px; padding: 10px">
+        <canvas class="chart chart-line" chart-data="chart.data"
+            chart-labels="chart.labels" chart-series="chart.series" chart-options="chart.options"
+            chart-dataset-override="chart.datasetOverride"></canvas> 
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Performance Data</div>
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column ng-repeat="col in columns" md-numeric="colDef[col].type=='numeric'"><span>{{colDef[col].title | translate}}</span></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="row in items.rows">
+            <td md-cell ng-repeat="col in columns">{{ row[col] | formatter : colDef[col].format }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </div>
+</div>
+</div>

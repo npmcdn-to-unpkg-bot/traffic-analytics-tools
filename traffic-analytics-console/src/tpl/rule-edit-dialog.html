@@ -1,0 +1,137 @@
+<md-dialog class="cs-edit-dialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="md-title">{{ctrl.title}}</h2>
+    </div>
+  </md-toolbar>
+  <md-progress-linear ng-show="ctrl.onSave" md-mode="indeterminate" class="cs-progress md-accent"></md-progress-linear>
+
+  <md-dialog-content class="md-dialog-content">
+
+    <form name="editForm" ng-submit="ctrl.save()" class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" ng-model="item.name" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Vendor</label>
+        <div class="col-sm-10">
+          <select ng-model="item.vendor" class="form-control m-b">
+            <option value="" disabled translate>common.please_select</option>
+            <option ng-repeat="(vid,vendor) in ctrl.vendors" value="{{vid}}">{{vendor.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="line line-dashed b-b line-lg pull-in"></div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Rules</label>
+        <div class="col-sm-10">
+          <div class="filter-list">
+            <span ng-repeat="filter in item.filters" class="filter-entry">
+              <span role="button" class="close" ng-click="ctrl.deleteFilter(filter)"> ×</span>
+              <span>
+                <em ng-if="filter.days">{{"filter.days." + filter.days | translate}}</em>
+                {{ ctrl.colDef[filter.indicator].title | translate }}
+                <em>{{ "filter.op." + filter.operator | translate }}</em>
+                {{ filter.value }}
+              </span>
+            </span>
+            <button type="button" class="btn btn-sm btn-info" ng-click="ctrl.openAddFilter=true"><i class="fa fa-plus fa-fw"></i></button>
+          </div>
+          <div ng-show="ctrl.openAddFilter" class="filter-edit row">
+            <div class="dropdown hidden-sm" uib-dropdown>
+              <a href class="dropdown-toggle" uib-dropdown-toggle>
+                {{newFilter.indicator ? ctrl.colDef[newFilter.indicator].title : "column.indicator" | translate}}
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="(col,def) in ctrl.colDef">
+                  <a ng-click="ctrl.selectFitlerIndicator(col)" href>{{def.title | translate}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown hidden-sm" uib-dropdown ng-hide="ctrl.daysDisabled">
+              <a href class="dropdown-toggle" uib-dropdown-toggle>
+                {{"filter.days." + (newFilter.days || "days") | translate}}
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="days in ctrl.availableDays">
+                  <a ng-click="newFilter.days=days" href>{{"filter.days." + days | translate}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown hidden-sm" uib-dropdown>
+              <a href class="dropdown-toggle" uib-dropdown-toggle>
+                {{"filter.op." + (newFilter.operator || "operator") | translate}}
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="op in ctrl.operators">
+                  <a ng-click="newFilter.operator=op" href>{{"filter.op." + op | translate}}</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <input type="text" ng-model="newFilter.value" placeholder="">
+            </div>
+            <div>
+              <a href ng-click="ctrl.addFilter();ctrl.openAddFilter=false"><i class="fa fa-check fa-fw"></i></a>
+              <a href ng-click="ctrl.openAddFilter=false"><i class="fa fa-times fa-fw"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="line line-dashed b-b line-lg pull-in"></div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Frequency</label>
+        <div class="col-sm-10">
+          <select ng-model="item.frequency" class="form-control m-b">
+            <option value="" disabled translate>common.please_select</option>
+            <option value="everyday" translate>opt.frequency.everyday</option>
+            <option value="mon" translate>opt.frequency.mon</option>
+            <option value="tue" translate>opt.frequency.tue</option>
+            <option value="wed" translate>opt.frequency.wed</option>
+            <option value="thu" translate>opt.frequency.thu</option>
+            <option value="fri" translate>opt.frequency.fri</option>
+            <option value="sat" translate>opt.frequency.sat</option>
+            <option value="sun" translate>opt.frequency.sun</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Action</label>
+        <div class="col-sm-10">
+          <div class="col-sm-4" style="padding-left: 0">
+            <select ng-model="item.action" class="form-control m-b" ng-change="ctrl.changeAction()">
+              <option value="" disabled translate>common.please_select</option>
+              <option value="notify" translate>opt.action.notify</option>
+              <option value="bidup" translate>opt.action.bidup</option>
+              <option value="biddown" translate>opt.action.biddown</option>
+              <option value="pause" translate>opt.action.pause</option>
+            </select>
+          </div>
+          <div class="col-sm-8" ng-show="ctrl.inputBid">
+            <input type="text" ng-model="item.bidby" class="form-control" style="width: 80px" />
+            <span class="help-block m-b-none" translate="opt.bidbyhelp"></span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </md-dialog-content>
+  
+  <md-dialog-actions>
+    <md-button class="md-primary md-raised" ng-click="ctrl.save()" ng-disabled="editForm.$invalid">Save</md-button>
+    <md-button class="md-primary" ng-click="ctrl.cancel()">Cancel</md-button>
+  </md-dialog-actions>
+  
+</md-dialog>

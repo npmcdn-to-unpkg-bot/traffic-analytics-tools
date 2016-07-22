@@ -1,0 +1,34 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <button class="btn btn-success" ng-click="editItem($event)">Add new site</button>
+    </div>
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column>ID</th>
+            <th md-column>Name</th>
+            <th md-column>URL</th>
+            <th md-column class="cs-cell-action">Operation</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="row in items.rows">
+            <td md-cell>{{ row.id }}</td>
+            <td md-cell>{{ row.name }}</td>
+            <td md-cell><a ng-href="{{row.url}}">{{ row.url }}</a></td>
+            <td md-cell class="cs-cell-action">
+              <span role="button" ng-click="editItem($event, row)"><i class="glyphicon glyphicon-edit"></i></span>
+              <span role="button" ng-click="deleteItem($event, row)"><i class="glyphicon glyphicon-remove"></i></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div ng-show="noVendor" class="panel">
+  <div class="panel-body no-vendor-alert">
+    <span translate>msg.no_vendor_for_site</span>,
+    <a class="btn btn-success" ui-sref="app.account">Go Bind One!</a>
+  </div>
+</div>
+
+<div ng-hide="noVendor">
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button class="btn btn-success" ng-click="editItem($event)">Add new rule</button>
+    </div>
+
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Name</th>
+            <th md-column>Vendor</th>
+            <th md-column>Filters</th>
+            <th md-column>Frequency</th>
+            <th md-column>Action</th>
+            <th md-column class="cs-cell-action">Operation</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="row in items.rows">
+            <td md-cell>{{ row.name }}</td>
+            <td md-cell>{{ vendors[row.vendor].name }}</td>
+            <td md-cell class="filter-list">
+              <span ng-repeat="filter in row.filters" class="filter-entry">
+                <em ng-if="filter.days">{{"filter.days." + filter.days | translate}}</em>
+                {{ colDef[filter.indicator].title | translate }}
+                <em>{{ "filter.op." + filter.operator | translate }}</em>
+                {{ filter.value }}
+              </span>
+            </td>
+            <td md-cell>{{ "opt.frequency." + row.frequency | translate }}</td>
+            <td md-cell>{{ "opt.action." + row.action | translate }} {{row.bidby || ''}}</td>
+            <td md-cell class="cs-cell-action">
+              <span role="button" ng-click="editItem($event, row)"><i class="glyphicon glyphicon-edit"></i></span>
+              <span role="button" ng-click="deleteItem($event, row)"><i class="glyphicon glyphicon-remove"></i></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{items.count}}" md-page-select></md-table-pagination>
+
+  </div>
+</div>
+</div>

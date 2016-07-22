@@ -1,0 +1,57 @@
+.material-icons {
+    vertical-align: middle;
+}
+a.cs-notify {
+    height: 50px;
+    padding: 13px 15px !important;
+}
+.cs-nav-icon {
+    margin-top: 5px;
+}
+.app-aside-folded .cs-nav-icon {
+    margin: 16px 0 10px;
+}
+.cs-edit-dialog {
+    width: 600px;
+}
+.cs-progress {
+    height: 3px;
+    margin-top: -3px;
+}
+.cs-cell-action {
+    text-align: center !important;
+}
+.cs-cell-action > span {
+    margin: 5px;
+}
+.cs-rule-detail > div {
+    line-height: 24px;
+}
+.cs-rule-detail label {
+    margin-left: 12px;
+}
+
+/* for md-table */
+table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),
+table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {
+    padding: 0 26px 0 0;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 0 26px 0 0;
+}
+table.md-table th.md-column {
+    background-color: rgb(247, 247, 247);
+    height: 40px;
+    font-size: 14px;
+}
+.md-table-pagination .label {
+    font-size: 12px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 0;
+    text-shadow: unset;
+}
+md-select.md-table-select {
+    margin: 0 0 0 -25px;
+}

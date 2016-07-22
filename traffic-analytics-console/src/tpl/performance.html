@@ -1,0 +1,143 @@
+<div ng-show="noVendor" class="panel">
+  <div class="panel-body no-vendor-alert">
+    <span translate>msg.no_vendor_for_site</span>,
+    <a class="btn btn-success" ui-sref="app.account">Go Bind One!</a>
+  </div>
+</div>
+
+<div ng-hide="noVendor">
+<div class="bg-light lter b-b wrapper-md">
+  <div class="pull-right daterange-picker">
+    <a daterangepicker="dateRangeOptions" date-range="dateRange" href class="ng-isolate-scope">
+      <span class="ng-binding">{{dateRange.start | date: 'yyyy/MM/dd'}} - {{dateRange.end | date: 'yyyy/MM/dd'}}</span>
+      <i class="fa fa-angle-down"></i>
+    </a>
+  </div>
+  <div class="pull-right vendor-selector">
+    <div class="dropdown hidden-sm" uib-dropdown>
+      <a href class="dropdown-toggle" uib-dropdown-toggle>
+        {{currentVendor ? vendors[currentVendor].name : '------'}} <b class="caret"></b>
+      </a>
+      <!-- dropdown -->
+      <ul class="dropdown-menu animated fadeInUp w" uib-dropdown-menu>
+        <li ng-repeat="(vid,vendor) in vendors">
+          <a ng-click="setVendor(vid)" href>{{vendor.name}}</a>
+        </li>
+      </ul>
+      <!-- / dropdown -->
+    </div>
+  </div>
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading font-bold">Filter</div>
+    <div class="panel-body">
+      <div class="filter-list">
+        <span ng-repeat="filter in filters" class="filter-entry">
+          <span role="button" class="close" ng-click="deleteFilter(filter)"> ×</span>
+          <span>
+            {{ colDef[filter.indicator].title | translate }}
+            <em>{{ "filter.op." + filter.operator | translate }}</em>
+            {{ filter.value }}
+          </span>
+        </span>
+        <button class="btn btn-sm btn-info" ng-click="openAddFilter=true"><i class="fa fa-plus fa-fw"></i></button>
+      </div>
+      <div ng-show="openAddFilter" class="filter-edit row">
+        <div class="dropdown hidden-sm" uib-dropdown>
+          <a href class="dropdown-toggle" uib-dropdown-toggle>
+            {{newFilter.indicator ? colDef[newFilter.indicator].title : "column.indicator" | translate}}
+            <i class="fa fa-angle-down"></i>
+          </a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li ng-repeat="(col,def) in colDef">
+              <a ng-click="selectFitlerIndicator(col)" href>{{def.title | translate}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown hidden-sm" uib-dropdown>
+          <a href class="dropdown-toggle" uib-dropdown-toggle>
+            {{"filter.op." + (newFilter.operator || "operator") | translate}}
+            <i class="fa fa-angle-down"></i>
+          </a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li ng-repeat="op in operators">
+              <a ng-click="newFilter.operator=op" href>{{"filter.op." + op | translate}}</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <input type="text" ng-model="newFilter.value" placeholder="">
+        </div>
+        <div>
+          <a href ng-click="addFilter()"><i class="fa fa-check fa-fw"></i></a>
+          <a href ng-click="openAddFilter=false"><i class="fa fa-times fa-fw"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="apull-right">
+        <div class="dropdown hidden-sm" uib-dropdown is-open="col_sel_open" auto-close="disabled">
+          <a href class="dropdown-toggle" uib-dropdown-toggle>
+            Columns
+            <i class="fa fa-angle-down"></i>
+          </a>
+          <!-- dropdown -->
+          <div class="dropdown-menu bg-white" uib-dropdown-menu>
+            <div class="col-sm-6 b-r b-light">
+              <div class="m-l-xs m-t-xs m-b-xs font-bold">All Columns</div>
+              <ul class="list-group gutter list-group-lg list-group-sp column-sort" >
+                  <li class="list-group-item" ng-repeat="(col,def) in colDef" ng-class="{'col-added':tmpColumns.indexOf(col)>=0}">
+                    <span class="pull-right" ><a href ng-click="add_col(col)"><i class="fa fa-plus fa-fw"></i></a></span>
+                    <div class="clear">{{ def.title | translate }}</div>
+                  </li>
+              </ul>
+            </div>
+            <div class="col-sm-6">
+              <div class="m-l-xs m-t-xs m-b-xs font-bold">Selected</div>
+              <ul ui-sortable="sortableOptions" ng-model="tmpColumns" class="list-group gutter list-group-lg list-group-sp column-sort" >
+                <li class="list-group-item" ng-repeat="col in tmpColumns">
+                  <span class="pull-right" ><a href ng-click="del_col(col)"><i class="fa fa-times fa-fw"></i></a></span>
+                  <div class="clear">{{ colDef[col].title | translate }}</div>
+                </li>
+              </ul>
+              <div style="text-align:center">
+                <button ng-click="cancelColSelect()" class="btn btn-sm btn-default" translate>common.cancel</button>
+                <button ng-click="applyColSelect()" class="btn btn-sm btn-success" translate>common.apply</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- / dropdown -->
+        </div>
+      </div>
+      <span></span>
+    </div>
+
+    <md-table-container>
+      <table md-table md-progress="promise">
+        <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column ng-repeat="col in columns" md-numeric="colDef[col].type=='numeric'" md-order-by="{{colDef[col].sortable ? col : ''}}"><span>{{colDef[col].title | translate}}</span></th>
+            <th md-column class="cs-cell-action">Action</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="row in items.rows">
+            <td md-cell ng-repeat="col in columns">{{ row[col] | formatter : colDef[col].format }}</td>
+            <td md-cell class="cs-cell-action">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{items.count}}" md-page-select></md-table-pagination>
+  </div>
+</div>
+</div>

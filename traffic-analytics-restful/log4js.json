@@ -1,9 +1,0 @@
-{
-	"appenders": [{
-		"type": "dateFile",
-		"filename": "/home/sem/semtools-restful-service-logs/access",
-		"backups": 3,
-		"pattern": "-yyyy-MM-dd.log",
-		"alwaysIncludePattern": true
-	}]
-}

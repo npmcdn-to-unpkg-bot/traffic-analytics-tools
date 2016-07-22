@@ -1,0 +1,75 @@
+<section class="tile" fullscreen="isFullscreen03">
+
+  <div class="tile-body" id="step1">
+
+    <h5 class="custom-font filled bg-greensea">第一步：登陆GA账号，进入主页。</h5>
+    <div class="center">
+      <image src="images/ga1.fdd601ff.png" class="img-responsive margin-15"></image>
+    </div>
+
+    <h5 class="custom-font filled bg-greensea">第二步：点击进入管理页面并进入“账户”下的“用户管理”。</h5>
+    <div class="center">
+      <image src="images/ga2.684eb360.png" class="img-responsive margin-15"></image>
+    </div>
+
+    <h5 class="custom-font filled bg-greensea">第三步：添加用户。请在下图的输入框中添加
+      <b class="text-lg b-b b-green"> mygadumper@my-ga-api.iam.gserviceaccount.com</b>
+</h5>
+    <div class="center">
+      <image src="images/ga3.002b8fb5.png" class="img-responsive margin-15"></image>
+    </div>
+
+    <pre class="alert alert-cyan mt-20">请确认完成以上三步后检查域名是否已绑定。</pre>
+    <div class="center">
+    <form class="form-inline">
+      <div class="form-group">
+        <span id="inputHost">{{domain}}</span>
+      </div>
+        <button type="submit" class="btn btn-default" ng-click="checkAcc()">检查</button>
+    </form>
+      <label id="alert"></label>
+
+    <div class="t-40">
+      <button id="bindingbtn" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1b mb-10" ng-click="toStep2()">绑定账户</button>
+
+    </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="tile-body" id="step2">
+
+    <pre class="alert alert-success mt-20"> 账户绑定成功！</pre>
+
+
+    <div class="center">
+
+      <div class="form-group" >
+
+        <label>请选择数据源:</label>
+        <div ng-repeat="account in accounts">
+
+          <label class="radio checkbox-custom checkbox-custom-sm">
+            <input ng-checked="exists(account.name, selected)" ng-click="toggle(account, selected)" type="radio" ng-model="options.position" value={{account.name}} name="datasource"><i></i>
+            {{account.name}}
+          </label>
+        </div>
+
+      </div>
+
+    <div class="t-40">
+        <button class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1b mb-10" ng-click="toStep1()">返回</button>
+
+        <button id="submit" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1b mb-10" ng-click="datasubmit()">确定</button>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- /tile body -->
+
+</section>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="MainCtrl">
+<head>
+  <meta charset="utf-8" />
+  <title ng-bind="app.name + ' - ' + app.subtitle">SEM Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  
+  <link rel="stylesheet" href="assets/css/app.min.css">
+</head>
+
+<body ng-class="{ie: isIE, smart: !screenGtSmall}" ng-cloak>
+  <div class="app app-header-fixed app-aside-fixed" id="app" ng-class="{'app-aside-folded':asideFolded}" ui-view ng-cloak></div>
+
+  <script src="assets/js/app.min.js"></script>
+</body>
+</html>

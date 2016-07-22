@@ -1,0 +1,33 @@
+<md-dialog class="cs-edit-dialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="md-title">{{ctrl.title}}</h2>
+    </div>
+  </md-toolbar>
+  <md-progress-linear ng-show="ctrl.onSave" md-mode="indeterminate" class="cs-progress md-accent"></md-progress-linear>
+
+  <md-dialog-content class="md-dialog-content">
+    <form name="editForm" ng-submit="ctrl.save()">
+      <md-input-container class="md-block">
+        <label>Site Name</label>
+        <input required name="name" ng-model="item.name">
+        <div ng-messages="editForm.name.$error">
+          <div ng-message="required">Please give the site a name.</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Site URL</label>
+        <input required name="url" ng-model="item.url">
+        <div ng-messages="editForm.url.$error">
+          <div ng-message="required">Site URL is required.</div>
+        </div>
+      </md-input-container>
+    </form>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <md-button class="md-primary md-raised" ng-click="ctrl.save()" ng-disabled="editForm.$invalid">Save</md-button>
+    <md-button class="md-primary" ng-click="ctrl.cancel()">Cancel</md-button>
+  </md-dialog-actions>
+  
+</md-dialog>

@@ -1,0 +1,222 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+<div class="wrapper-md">
+  <uib-tabset class="tab-animation tab-container tab-wizard" justified="true" active="activeStep" ng-init="totalSteps=4">
+
+    <uib-tab>
+      <uib-tab-heading>
+        Account <span class="badge badge-default pull-right wizard-step">1</span>
+      </uib-tab-heading>
+
+      <md-content layout-padding>
+
+      <form name="accountForm">
+        <div layout="row" layout-xs="column" layout-sm="column">
+          <div flex="40" layout-padding>
+            <md-input-container class="md-block">
+              <label>Name</label>
+              <input required name="name" ng-model="account.name">
+              <div ng-messages="accountForm.name.$error">
+                <div ng-message="required">Name is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Bing Account Username</label>
+              <input required name="username" ng-model="account.username">
+              <div ng-messages="accountForm.username.$error">
+                <div ng-message="required">Account Name is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Customer ID</label>
+              <input required name="customerid" ng-model="account.customerid">
+              <div ng-messages="accountForm.customerid.$error">
+                <div ng-message="required">Customer ID is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Account ID</label>
+              <input required name="accountid" async-check="{{'account.bound.'+(account.id||0)}}" ng-model="account.accountid" ng-model-options="{ debounce: 400 }">
+              <div ng-messages="accountForm.accountid.$error">
+                <div ng-message="required">Account ID is required.</div>
+                <div ng-message="asyncCheck">Account ID is already bound.</div>
+              </div>
+            </md-input-container>
+            <div class="md-block">
+                <button type="button" ng-disabled="accountForm.$invalid" class="btn btn-default pull-right" ng-click="goStep(1)">Next</button>
+            </div>
+          </div>
+
+          <div flex hide-xs hide-sm>
+            <!-- Spacer //-->
+          </div>
+
+          <div flex="55" layout-padding>
+            <h4>一、用户名:</h4>
+            <p>您登录Bing账户所输入的邮箱</p>
+            <h4>二、Customer ID/Account ID:</h4>
+            <p>登录Bing账户后在“帐号设置”中查询</p>
+          </div>
+        </div>
+      </form>
+
+      </md-content>
+    </uib-tab>
+
+    <uib-tab disable="accountForm.$invalid">
+
+      <uib-tab-heading>
+        Client <span class="badge badge-default pull-right wizard-step">2</span>
+      </uib-tab-heading>
+
+      <md-content layout-padding>
+
+      <form name="clientForm" novalidate>
+        <div layout="row" layout-xs="column" layout-sm="column">
+          <div flex="40" layout-padding>
+            <md-input-container class="md-block">
+              <label>Client ID</label>
+              <input required name="clientid" ng-model="account.clientid">
+              <div ng-messages="clientForm.clientid.$error">
+                <div ng-message="required">Client ID is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Client Secret</label>
+              <input required name="clientsecret" ng-model="account.clientsecret">
+              <div ng-messages="clientForm.clientsecret.$error">
+                <div ng-message="required">Client Secret is required.</div>
+              </div>
+            </md-input-container>
+            <div class="md-block">
+              <button type="button" class="btn btn-default" ng-click="goStep(-1)">Prev</button>
+              <button type="button" ng-disabled="clientForm.$invalid" class="btn btn-default pull-right" ng-click="goStep(1)">Next</button>
+            </div>
+          </div>
+
+          <div flex hide-xs hide-sm>
+            <!-- Spacer //-->
+          </div>
+
+          <div flex="55" layout-padding>
+            <h4>Client ID/Client Secret:</h4>
+            <p>1、访问 <a href="https://account.live.com/developers/applications/create" target="_blank">https://account.live.com/developers/applications/create</a>
+            </p>
+            <p><strong><span style="color: rgb(255, 38, 0);">（特别注意：使用MCC账号登陆）</span></strong></p>
+            <div><img src="assets/img/help1.jpg"/></div>
+            <p>2、登陆后会进入如下页面：</p>
+            <div><img src="assets/img/help2.jpg"/></div>
+            <p>3、在”应用程序名称*”中填写自定义的应用名称，此处我填写了AutoBidding,如下</p>
+            <div><img src="assets/img/help3.jpg"/></div>
+            <p>4、然后点击”我接受”，并进入了如下页面</p>
+            <div><img src="assets/img/help4.jpg"/></div>
+            <p>5、点击“保存”并进入”API设置”:</p>
+            <div><img src="assets/img/help5.jpg"/></div>
+            <p>6、然后点击“保存”，并点击”应用设置”:（会看到Client ID 和 Client Secret)</p>
+            <div><img src="assets/img/help6.jpg"/></div>
+          </div>
+        </div>
+      </form>
+
+    </uib-tab>
+
+    <uib-tab disable="clientForm.$invalid">
+
+      <uib-tab-heading>
+        Refresh Token
+        <span class="badge badge-default pull-right wizard-step">3</span>
+      </uib-tab-heading>
+
+      <form name="tokenForm" novalidate>
+        <div layout="row" layout-xs="column" layout-sm="column">
+          <div flex="40" layout-padding>
+            <md-input-container class="md-block">
+              <label>Refresh Token</label>
+              <input required name="refresh" ng-model="account.refreshtoken">
+              <div ng-messages="tokenForm.refresh.$error">
+                <div ng-message="required">Refresh Token is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Access Token</label>
+              <input required name="access" ng-model="account.accesstoken">
+              <div ng-messages="tokenForm.access.$error">
+                <div ng-message="required">Access Token is required.</div>
+              </div>
+            </md-input-container>
+            <div class="md-block">
+              <button type="button" class="btn btn-default" ng-click="goStep(-1)">Prev</button>
+              <button type="button" ng-disabled="tokenForm.$invalid" class="btn btn-default pull-right" ng-click="goStep(1)">Next</button>
+            </div>
+          </div>
+
+          <div flex hide-xs hide-sm>
+            <!-- Spacer //-->
+          </div>
+
+          <div flex="55" layout-padding>
+            <h4>Refresh Token/Access Token:</h4>
+            <p>
+              1、访问：<a target="_blank" href="https://login.live.com/oauth20_authorize.srf?client_id=CLIENT_ID&scope=bingads.manage&response_type=code&redirect_uri=https://login.live.com/oauth20_desktop.srf">https://login.live.com/oauth20_authorize.srf?client_id=CLIENT_ID&amp;scope=bingads.manage&amp;response_type=code&amp;redirect_uri=https://login.live.com/oauth20_desktop.srf</a>
+            </p>
+            <p>注意这里面有个CLIENT_ID,用上面获取的CLIENT_ID替换掉。</p>
+            <p>2、然后”登陆”，并确认”授权”，会看到浏览器如下地址栏：</p>
+            <div><img src="assets/img/help7.jpg"/></div>
+            <p>其中的code就是API中对应的Authorization Code</p>
+            <p>3、使用以上获取的Client ID / Client Secret / Authorization Code替换以下URL中的参数：</p>
+            <div><img src="assets/img/help8.jpg"/></div>
+            <p>4、得到如下的URL：</p>
+            <div><img src="assets/img/help9.jpg"/></div>
+            <p>5、然后在浏览器中访问：</p>
+            <div><img src="assets/img/help10.jpg"/></div>
+            <p>6、格式化后如下：</p>
+            <div><img src="assets/img/help11.jpg"/></div>
+            <p>7、然后在SEM库中新增一条Account记录，内容就是上面获取的token和bing账号对应的SiteId</p>
+          </div>
+        </div>
+      </form>
+
+    </uib-tab>
+
+    <uib-tab disable="tokenForm.$invalid">
+
+      <uib-tab-heading>
+        Developer Token
+        <span class="badge badge-default pull-right wizard-step">4</span>
+      </uib-tab-heading>
+
+      <form name="devForm" novalidate>
+        <div layout="row" layout-xs="column" layout-sm="column">
+          <div flex="40" layout-padding>
+            <md-input-container class="md-block">
+              <label>Developer Token</label>
+              <input required name="devtoken" ng-model="account.devtoken">
+              <div ng-messages="devForm.refresh.$error">
+                <div ng-message="required">Developer Token is required.</div>
+              </div>
+            </md-input-container>
+            <div class="md-block">
+              <span ng-if="errorMsg" class="error-msg">{{errorMsg}}</span>
+              <button type="button" class="btn btn-default" ng-click="goStep(-1)">Prev</button>
+              <button class="btn btn-primary" ng-click="save()" ng-disabled="devForm.$invalid || isSaving">{{ isSaving ? 'common.saving' : 'common.save' | translate}}</button>
+            </div>
+          </div>
+
+          <div flex hide-xs hide-sm style="border:1px solid white">
+            <!-- Spacer //-->
+          </div>
+
+          <div flex="55" layout-padding>
+            <h4>Developer Token:</h4>
+            <p>使用您登录Bing帐号所使用的邮箱和密码，登录开发者中心：</p>
+            <p><a target="_blank" href="https://developers.bingads.microsoft.com">https://developers.bingads.microsoft.com</a></p>
+            <p>登录后即可进入Account板块进行查询</p>
+          </div>
+        </div>
+      </form>
+    </uib-tab>
+
+  </uib-tabset>
+
+</div>

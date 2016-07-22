@@ -1,0 +1,231 @@
+  <!-- navbar -->
+  <div class="app-header navbar">
+    <!-- navbar header -->
+    <div class="navbar-header bg-info dker">
+      <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+        <i class="glyphicon glyphicon-cog"></i>
+      </button>
+      <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll-to="app">
+        <i class="glyphicon glyphicon-align-justify"></i>
+      </button>
+      <!-- brand -->
+      <a href="#/" class="navbar-brand text-lt">
+        <i class="fa fa-btc"></i>
+        <!--img src="img/logo.png" alt="." class="hide"-->
+        <span class="hidden-folded m-l-xs">{{app.name}}</span>
+      </a>
+      <!-- / brand -->
+    </div>
+    <!-- / navbar header -->
+
+    <!-- navbar collapse -->
+    <div class="collapse pos-rlt navbar-collapse box-shadow bg-info dker">
+      <!-- buttons -->
+      <div class="nav navbar-nav hidden-xs">
+        <a href class="btn no-shadow navbar-btn" ng-click="asideFolded = !asideFolded">
+          <i class="fa {{asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+        </a>
+      </div>
+      <!-- / buttons -->
+
+      <!-- link and dropdown -->
+      <ul class="nav navbar-nav hidden-sm">
+        <li class="dropdown" uib-dropdown>
+          <a href class="dropdown-toggle" uib-dropdown-toggle>
+            <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+            <span>{{currentSite ? sites[currentSite].name : '------' }}</span> <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight w" uib-dropdown-menu>
+            <li ng-repeat="site in sites">
+              <a ng-click="setSite(site.id)" href>{{site.name}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- / link and dropdown -->
+
+      <!-- nabar right -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-sm" is-open="lang.isopen" uib-dropdown>
+          <a href class="dropdown-toggle" uib-dropdown-toggle>
+            {{selectLang}} <b class="caret"></b>
+          </a>
+          <!-- dropdown -->
+          <ul class="dropdown-menu animated fadeInRight w" uib-dropdown-menu>
+            <li ng-repeat="(langKey, label) in langs">
+              <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+            </li>
+          </ul>
+          <!-- / dropdown -->
+        </li>
+        <li class="dropdown" uib-dropdown>
+          <a href class="dropdown-toggle cs-notify" uib-dropdown-toggle>
+            <i class="material-icons md-mini">&#xE7F5;</i>
+            <span ng-show="notifications.newCount>0" class="badge badge-sm up bg-danger pull-right-xs">{{notifications.newCount}}</span>
+          </a>
+          <!-- dropdown -->
+          <div class="dropdown-menu animated fadeInUp" uib-dropdown-menu>
+            <div class="panel bg-white">
+              <div class="panel bg-white" ng-show="notifications.newCount==0">
+                <p class="cs-no-notification">You have no new notifications</p>
+              </div>
+              <div class="panel bg-white w-xl" ng-show="notifications.newCount>0">
+                <div class="panel-heading b-light bg-light">
+                  <strong>You have <span>{{notifications.newCount}}</span> new notifications</strong>
+                </div>
+                <div class="list-group">
+                  <a href class="list-group-item" ng-repeat="message in notifications.messages">
+                    <span class="pull-left m-r thumb-sm" ng-if="message.thumb">
+                      <img ng-src="{{message.thumb}}" alt="..." class="img-circle">
+                    </span>
+                    <span class="clear block m-b-none">
+                      {{message.title}}<br>
+                      <small class="text-muted">{{message.createTime}}</small>
+                    </span>
+                  </a>
+                </div>
+                <div class="panel-footer text-sm hide">
+                  <a href class="pull-right"><i class="fa fa-cog"></i></a>
+                  <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- / dropdown -->
+        </li>
+        <li class="dropdown" uib-dropdown>
+          <a href class="dropdown-toggle clear" uib-dropdown-toggle>
+            <!--i class="material-icons md-mini">&#xE87C;</i-->
+            <span class="hidden-sm hidden-md">{{currentUser.name}}</span>
+            <b class="caret"></b>
+          </a>
+          <!-- dropdown -->
+          <ul class="dropdown-menu animated fadeInRight w" uib-dropdown-menu>
+            <!--li>
+              <a ui-sref="app.profile">Profile</a>
+            </li-->
+            <li>
+              <a href ng-click="logout()">Logout</a>
+            </li>
+          </ul>
+          <!-- / dropdown -->
+        </li>
+      </ul>
+      <!-- / navbar right -->
+
+    </div>
+    <!-- / navbar collapse -->
+  </div>
+  <!-- / navbar -->
+
+  <!-- menu -->
+  <div class="app-aside hidden-xs bg-light dker b-r">
+    <div class="aside-wrap">
+      <div class="navi-wrap">
+        <!-- nav -->
+        <nav ui-nav class="navi clearfix">
+          <!-- list -->
+          <ul class="nav">
+            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+              <span translate="aside.nav.HEADER">Navigation</span>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="app.dashboard">
+                <i class="glyphicon glyphicon-home"></i>
+                <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="glyphicon glyphicon-stats"></i>
+                <span class="font-bold" translate="aside.nav.PERFORMANCE">Performance</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li class="nav-sub-header">
+                  <a href>
+                    <span>Performance</span>
+                  </a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="app.performance.keyword">
+                    <span>Keyword Performance</span>
+                  </a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="app.performance.adgroup">
+                    <span>Adgroup Performance</span>
+                  </a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="app.performance.campaign">
+                    <span>Campaign Performance</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="glyphicon glyphicon-export"></i>
+                <span class="font-bold" translate="aside.nav.OPTIMIZATION">Optimization</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li class="nav-sub-header">
+                  <a href>
+                    <span>Optimization</span>
+                  </a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="app.optimization.list">
+                    <span>Optimization Rules</span>
+                  </a>
+                </li>
+                <li ui-sref-active="active">
+                  <a ui-sref="app.optimization.log">
+                    <span>Optimization Log</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="app.account">
+                <i class="glyphicon glyphicon-paperclip"></i>
+                <span class="font-bold" translate="aside.nav.ACCOUNT">Account</span>
+              </a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="app.site">
+                <i class="glyphicon glyphicon-globe"></i>
+                <span class="font-bold" translate="aside.nav.SITE">Sites</span>
+              </a>
+            </li>
+          </ul>
+          <!-- / list -->
+        </nav>
+        <!-- nav -->
+      </div>
+    </div>
+  </div>
+  <!-- / menu -->
+
+  <!-- content -->
+  <div class="app-content">
+    <div ui-butterbar></div>
+    <div class="app-content-body fade-in-up" ui-view></div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="app-footer wrapper b-t bg-light">
+    <span class="pull-right">{{app.version}} <a href ui-scroll-to="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span>
+    &copy; 2016 Copyright.
+  </div>
+  <!-- / footer -->
+  </div>

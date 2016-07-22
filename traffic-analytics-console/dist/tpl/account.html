@@ -1,0 +1,64 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">{{ app.subtitle }}</h1>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="pull-right vendor-selector">
+            <div class="dropdown hidden-sm" uib-dropdown>
+              <a href class="dropdown-toggle" uib-dropdown-toggle>
+                Bind New <b class="caret"></b>
+              </a>
+              <!-- dropdown -->
+              <ul class="dropdown-menu animated fadeInUp w" uib-dropdown-menu>
+                <li ng-repeat="vt in vendorTypes">
+                  <a ng-href="#/app/binding/{{vt}}/">{{'account.'+vt | translate}}</a>
+                </li>
+              </ul>
+              <!-- / dropdown -->
+            </div>
+          </div>
+          <span>Cost Binding</span>
+        </div>
+        <div class="panel-body" ng-if="!vendors">
+          <span translate>account.bind_vendor</span>
+        </div>
+        <ul ng-if="vendors" class="list-group alt">
+          <li ng-repeat="vendor in vendors" class="list-group-item">
+            <div class="media">
+              <span class="pull-left thumb-sm"><img ng-src="{{'assets/img/'+vendor.type+'.png'}}" alt="{{'account.'+vendor.type | translate}}" class="img-circle"></span>
+              <div class="pull-right text-success m-t-sm">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="media-body">
+                <div><a ng-href="#/app/binding/{{vendor.type}}/{{vendor.id||''}}" title="click to edit">{{vendor.name}}</a></div>
+                <small class="text-muted">{{ vendor.bindtime }}</small>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">                    
+          <span>Conversion Binding</span>
+        </div>
+        <div class="panel-body">
+          <div ng-if="conversion">
+            <p translate>account.conversion_bound</p>
+            <div class="row" ng-repeat="(k,v) in conversion">
+              <div class="col-sm-3 right-align">{{ k }}:</div>
+              <div class="col-sm-9">{{ v }}</div>
+            </div>
+          </div>
+          <div ng-if="!conversion">
+            <span translate>account.bind_conversion</span>
+            <a ui-sref="app.binding.conversion" class="btn m-b-xs w-xs btn-danger btn-rounded" translate>account.bind_now</a>
+          </div>
+        </div>
+      </div>    
+   </div>
+</div>
