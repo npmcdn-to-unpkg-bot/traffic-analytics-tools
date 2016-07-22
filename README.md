@@ -1,8 +1,10 @@
 ##traffic-analytics-tools
 ---------------------------------------------------------------------------------
 
-@author : balabala.sean@gmail.com
-@author : wilson.shang@gmail.com
+traffic-analytics-tools ：针对Google Analytics做tracking的流量跟踪和优化工具
+
+* @author : balabala.sean@gmail.com
+* @author : wilson.shang@gmail.com
 
 #### traffic-analytics-console (nodejs提供的admin管理平台)
 
