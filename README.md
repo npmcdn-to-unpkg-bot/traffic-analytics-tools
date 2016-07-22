@@ -21,7 +21,7 @@ $ npm install -g grunt-cli
 $ npm install
 $ bower install
 
-# to build the 'dist' folder
+$ to build the 'dist' folder
 $ grunt build:dist
 
 $ node app.js
