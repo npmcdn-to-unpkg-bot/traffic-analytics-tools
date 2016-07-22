@@ -6,7 +6,7 @@
 
 #### traffic-analytics-console (nodejs提供的admin管理平台)
 
-traffic-analytics-console是采用的angular.js前端单页的形式开发，nodejs提供restful service
+traffic-analytics-console是采用的angular.js前端单页的形式开发，nodejs提供restful service.目前前后端对接已完成，系统可运行，后台rest service还未完成。
 
 在运行这个项目之前，你需要做如下的步骤：
 
